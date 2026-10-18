@@ -4,9 +4,9 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1080, height: 780, minWidth: 420, minHeight: 600,
     title: "George's Plan",
-    icon: path.join(__dirname, 'build', 'icon.png'),
+    icon: path.join(__dirname, 'icon.png'),
     autoHideMenuBar: true,
-    webPreferences: { backgroundThrottling: false } // 最小化后提醒依然准时
+    webPreferences: { backgroundThrottling: false }
   });
   win.loadFile('index.html');
 }
