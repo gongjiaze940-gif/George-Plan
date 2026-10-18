@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>George’s Plan</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5d8a'/%3E%3Ctext x='8' y='46' font-family='Georgia,serif' font-weight='700' font-size='38' fill='%23fff'%3EG%3C/text%3E%3Ctext x='31' y='52' font-family='Georgia,serif' font-weight='700' font-size='32' fill='%23ffd166'%3EP%3C/text%3E%3C/svg%3E">
+<style>
+:root{--card:rgba(255,255,255,.92);--text:#1f2933;--sub:#667085;--line:#e4e7ec;--accent:#2f5d8a;--imp:#d64545;--note:#fff4b8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--card:rgba(30,34,41,.92);--text:#eef1f5;--sub:#9aa4b2;--line:#3a414c;--accent:#7fb2e5;--imp:#ff7b7b;--note:#5a5330}}
+:root[data-theme="dark"]{--card:rgba(30,34,41,.92);--text:#eef1f5;--sub:#9aa4b2;--line:#3a414c;--accent:#7fb2e5;--imp:#ff7b7b;--note:#5a5330}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--text);background:#dfe9f3;background-size:cover;background-position:center;background-attachment:fixed}
+.wrap{max-width:1000px;margin:0 auto;padding:16px 16px 28px}
+.card{background:var(--card);border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;background:var(--card);padding:6px 14px 6px 8px;border-radius:14px}
+nav{display:flex;gap:6px;margin-left:auto;background:var(--card);padding:4px;border-radius:12px}
+nav button{border:0;background:none;padding:7px 14px;border-radius:9px;color:var(--text);font-size:14px;cursor:pointer}
+nav button.on{background:var(--accent);color:#fff}
+.main{display:grid;grid-template-columns:1fr 260px;gap:14px}
+@media(max-width:760px){.main{grid-template-columns:1fr}}
+.days{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-bottom:14px}
+.day{border:1px solid var(--line);background:none;color:var(--text);border-radius:10px;padding:8px 2px;cursor:pointer;text-align:center;font-size:12px;position:relative}
+.day b{display:block;font-size:17px}
+.day.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.day.today::after{content:"今天";position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:10px;background:#ffd166;color:#333;border-radius:6px;padding:0 5px}
+h2{margin:0 0 10px;font-size:16px}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+input,select,textarea,button.btn{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--text);min-width:0}
+.form .full{grid-column:1/-1}
+button.btn{background:var(--accent);color:#fff;border:0;cursor:pointer}
+button.ghost{background:none;color:var(--sub);border:1px solid var(--line)}
+label.chk{display:flex;align-items:center;gap:6px;font-size:14px}
+.task{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-left:5px solid #98a2b3;border-radius:10px;margin-bottom:8px}
+.task.imp{border-left-color:var(--imp);background:rgba(214,69,69,.07)}
+.task .t{flex:1;min-width:0}
+.task .n{font-weight:600;word-break:break-all}
+.task .m{font-size:12px;color:var(--sub)}
+.tag{font-size:11px;padding:1px 7px;border-radius:8px;background:var(--imp);color:#fff;margin-left:6px}
+.tag.n{background:#98a2b3}
+.mini{border:0;background:none;color:var(--sub);cursor:pointer;font-size:13px;padding:4px 6px}
+.empty{color:var(--sub);text-align:center;padding:24px 0;font-size:14px}
+.note{background:var(--note);transform:rotate(-1deg);position:sticky;top:12px;align-self:start;min-height:200px}
+.note h2{display:flex;justify-content:space-between}
+.note li{margin:6px 0;font-size:14px;list-style:none}
+.note ul{padding:0;margin:0}
+.note .tm{color:var(--sub);font-size:12px}
+.quote{margin-top:16px;text-align:center;background:var(--card);border-radius:14px;padding:14px 18px;font-size:14px}
+.quote i{display:block;font-size:12px;color:var(--sub);margin-top:4px;font-style:normal}
+.hide{display:none!important}
+.swatches{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
+.sw{width:56px;height:36px;border-radius:8px;border:2px solid transparent;cursor:pointer}
+.sw.on{border-color:var(--accent)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:50}
+.modal{background:var(--card);color:var(--text);border-radius:16px;padding:24px;width:min(340px,90vw);text-align:center;background-color:Canvas}
+.modal h3{margin:0 0 8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div class="logo"><svg width="34" height="34" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#2f5d8a"/><text x="8" y="46" font-family="Georgia,serif" font-weight="700" font-size="38" fill="#fff">G</text><text x="31" y="52" font-family="Georgia,serif" font-weight="700" font-size="32" fill="#ffd166">P</text></svg>George’s Plan</div>
+ <nav><button data-v="week" class="on">八日计划</button><button data-v="long">长期计划</button><button data-v="set">设置</button></nav>
+</header>
+
+<section id="week" class="main">
+ <div class="card">
+  <div class="days" id="days"></div>
+  <h2 id="formTitle">添加任务</h2>
+  <div class="form">
+   <input id="fTitle" class="full" placeholder="任务内容">
+   <select id="fDate"></select>
+   <label>开始时间<input id="fStart" type="time" value="09:00"></label>
+   <label>截止时间<input id="fEnd" type="time" value="10:00"></label>
+   <label class="chk"><input id="fImp" type="checkbox"> 重要任务</label>
+   <button class="btn" id="fSave">添加</button>
+   <button class="btn ghost hide" id="fCancel">取消编辑</button>
+  </div>
+  <h2 id="listTitle"></h2>
+  <div id="list"></div>
+ </div>
+ <aside class="card note"><h2><span>📌 今日便签</span><span id="noteDate" class="tm"></span></h2><ul id="noteList"></ul></aside>
+</section>
+
+<section id="long" class="card hide">
+ <h2>长期计划</h2>
+ <div class="form">
+  <input id="lTitle" class="full" placeholder="长期目标（如：三个月内完成英语四级）">
+  <label>目标日期<input id="lDate" type="date"></label>
+  <input id="lNote" placeholder="备注 / 拆解步骤">
+  <button class="btn" id="lSave">添加</button>
+ </div>
+ <div id="longList"></div>
+</section>
+
+<section id="set" class="card hide">
+ <h2>提醒方式（任务开始时提醒）</h2>
+ <div class="row">
+  <select id="sMode"><option value="popup">弹窗提醒</option><option value="sound">声音提醒</option><option value="off">关闭提醒</option></select>
+  <button class="btn ghost" id="sTest">测试一下</button>
+ </div>
+ <h2>背景</h2>
+ <div class="swatches" id="swatches"></div>
+ <div class="row">
+  <label>自定义颜色 <input type="color" id="sColor" value="#dfe9f3"></label>
+  <label class="btn ghost" style="cursor:pointer;padding:8px 12px;border-radius:8px;border:1px solid var(--line)">上传图片<input type="file" id="sImg" accept="image/*" class="hide"></label>
+ </div>
+ <p class="tm" style="color:var(--sub);font-size:12px">提醒需要保持本页面打开（可最小化窗口）。数据保存在当前浏览器中。</p>
+</section>
+
+<div class="quote" id="quote"></div>
+</div>
+
+<script>
+const WD=['周日','周一','周二','周三','周四','周五','周六'];
+const BGS=['#dfe9f3','linear-gradient(135deg,#a1c4fd,#c2e9fb)','linear-gradient(135deg,#fbc2eb,#a6c1ee)','linear-gradient(135deg,#d4fc79,#96e6a1)','linear-gradient(135deg,#ffecd2,#fcb69f)','linear-gradient(135deg,#232526,#414345)'];
+const Q=[["不经历风雨，怎能见彩虹。","中国谚语"],["知人者智，自知者明。","老子"],["千里之行，始于足下。","老子"],["天行健，君子以自强不息。","《周易》"],["我思故我在。","笛卡尔"],["未经审视的人生不值得过。","苏格拉底"],["生命不止，奋斗不息。","中国谚语"],["路漫漫其修远兮，吾将上下而求索。","屈原"],["真正的发现之旅，不在于寻找新风景，而在于拥有新眼光。","普鲁斯特"],["成功是日复一日微小努力的累积。","罗伯特·科利尔"],["与其诅咒黑暗，不如点亮一盏灯。","中国谚语"],["人生最大的光荣，不在于从不跌倒，而在于每次跌倒后都能爬起来。","孔子 / 戈德史密斯"],["Well begun is half done.（好的开始是成功的一半。）","亚里士多德"],["你要成为你想在世界上看到的改变。","甘地"],["业精于勤，荒于嬉；行成于思，毁于随。","韩愈"],["少壮不努力，老大徒伤悲。","《长歌行》"],["The only way to do great work is to love what you do.","史蒂夫·乔布斯"],["不积跬步，无以至千里。","荀子"],["Whether you think you can or you can't, you're right.","亨利·福特"],["生活的真谛在于行动，而不在空想。","歌德"],["青春须早为，岂能长少年。","《增广贤文》"],["Stay hungry, stay foolish.","史蒂夫·乔布斯"],["志不强者智不达。","墨子"],["The unexamined life is not worth living.","苏格拉底"],["今天的努力，是明天的底气。","佚名"],["宝剑锋从磨砺出，梅花香自苦寒来。","中国谚语"],["勇气不是没有恐惧，而是战胜恐惧。","纳尔逊·曼德拉"],["世上无难事，只怕有心人。","中国谚语"],["Hope is a good thing, maybe the best of things.","《肖申克的救赎》"],["功崇惟志，业广惟勤。","《尚书》"],["人的一生可能燃烧，也可能腐朽，但我不能腐朽。","奥斯特洛夫斯基"],["Every day is a new beginning.（每天都是新的开始。）","T.S. 艾略特"],["长风破浪会有时，直挂云帆济沧海。","李白"]];
+let S={tasks:[],longs:[],set:{mode:'popup',bg:0,color:'',img:''}};
+try{const r=localStorage.getItem('gp_data');if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+function save(){try{localStorage.setItem('gp_data',JSON.stringify(S))}catch(e){alert('保存失败：可能是背景图片太大，请换小一点的图片。')}}
+const $=s=>document.querySelector(s);
+const p2=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());
+const todayStr=()=>ymd(new Date());
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+function week(){const a=[];for(let i=0;i<8;i++){const d=new Date();d.setDate(d.getDate()+i);a.push({s:ymd(d),m:d.getMonth()+1,d:d.getDate(),w:WD[d.getDay()]})}return a}
+let sel=todayStr(),editId=null;
+
+function render(){
+ const W=week();
+ if(!W.some(x=>x.s===sel))sel=W[0].s;
+ $('#days').innerHTML=W.map((x,i)=>`<button class="day ${x.s===sel?'on':''} ${i===0?'today':''}" data-d="${x.s}">${x.m}月<b>${x.d}</b>${x.w}</button>`).join('');
+ const opts=W.map(x=>`<option value="${x.s}">${x.m}月${x.d}日 ${x.w}</option>`).join('');
+ const cur=$('#fDate').value;$('#fDate').innerHTML=opts;$('#fDate').value=editId?cur:sel;
+ const sd=W.find(x=>x.s===sel);
+ $('#listTitle').textContent=`${sd.m}月${sd.d}日 ${sd.w} 的计划`;
+ const list=S.tasks.filter(t=>t.date===sel).sort((a,b)=>a.start.localeCompare(b.start));
+ $('#list').innerHTML=list.length?list.map(t=>`<div class="task ${t.imp?'imp':''}"><div class="t"><div class="n">${esc(t.title)}<span class="tag ${t.imp?'':'n'}">${t.imp?'重要':'一般'}</span></div><div class="m">⏰ ${t.start} – ${t.end}</div></div><button class="mini" data-e="${t.id}">编辑</button><button class="mini" data-x="${t.id}">删除</button></div>`).join(''):'<div class="empty">这一天还没有计划，添加一个吧</div>';
+ const now=new Date(),tl=S.tasks.filter(t=>t.date===todayStr()).sort((a,b)=>(b.imp-a.imp)||a.start.localeCompare(b.start));
+ $('#noteDate').textContent=`${now.getMonth()+1}月${now.getDate()}日 ${WD[now.getDay()]}`;
+ $('#noteList').innerHTML=tl.length?tl.map(t=>`<li>${t.imp?'<b style="color:var(--imp)">★</b>':'·'} <b>${esc(t.title)}</b><br><span class="tm">${t.start} – ${t.end}</span></li>`).join(''):'<li class="tm">今天暂无安排，放松一下～</li>';
+ $('#longList').innerHTML=S.longs.length?S.longs.sort((a,b)=>(a.date||'9').localeCompare(b.date||'9')).map(l=>`<div class="task"><div class="t"><div class="n">${esc(l.title)}</div><div class="m">${l.date?'🎯 目标日期 '+l.date:'未设日期'}${l.note?' · '+esc(l.note):''}</div></div><button class="mini" data-lx="${l.id}">删除</button></div>`).join(''):'<div class="empty">还没有长期计划</div>';
+ $('#sMode').value=S.set.mode;
+ $('#swatches').innerHTML=BGS.map((b,i)=>`<div class="sw ${!S.set.color&&!S.set.img&&S.set.bg===i?'on':''}" style="background:${b}" data-b="${i}"></div>`).join('');
+ applyBg();
+}
+function applyBg(){const s=S.set;document.body.style.background=s.img?`center/cover fixed url(${s.img})`:(s.color||BGS[s.bg]);document.body.style.backgroundAttachment='fixed'}
+function resetForm(){editId=null;$('#fTitle').value='';$('#fImp').checked=false;$('#fSave').textContent='添加';$('#formTitle').textContent='添加任务';$('#fCancel').classList.add('hide')}
+
+document.addEventListener('click',e=>{
+ const t=e.target;
+ if(t.dataset.v){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b===t));['week','long','set'].forEach(v=>$('#'+v).classList.toggle('hide',v!==t.dataset.v))}
+ if(t.dataset.d){sel=t.dataset.d;if(!editId)$('#fDate').value=sel;render()}
+ if(t.dataset.x){S.tasks=S.tasks.filter(x=>x.id!==t.dataset.x);save();render()}
+ if(t.dataset.lx){S.longs=S.longs.filter(x=>x.id!==t.dataset.lx);save();render()}
+ if(t.dataset.e){const k=S.tasks.find(x=>x.id===t.dataset.e);editId=k.id;$('#fTitle').value=k.title;$('#fDate').value=k.date;$('#fStart').value=k.start;$('#fEnd').value=k.end;$('#fImp').checked=k.imp;$('#fSave').textContent='保存修改';$('#formTitle').textContent='编辑任务';$('#fCancel').classList.remove('hide');$('#fTitle').focus()}
+ if(t.dataset.b){S.set.bg=+t.dataset.b;S.set.color='';S.set.img='';save();render()}
+});
+$('#fSave').onclick=()=>{
+ const title=$('#fTitle').value.trim(),date=$('#fDate').value,start=$('#fStart').value,end=$('#fEnd').value;
+ if(!title)return alert('请先写上任务内容');
+ if(!start||!end)return alert('请设置开始与截止时间');
+ if(end<=start)return alert('截止时间要晚于开始时间');
+ const o={title,date,start,end,imp:$('#fImp').checked};
+ if(editId){Object.assign(S.tasks.find(x=>x.id===editId),o);fired.clear()}else S.tasks.push({id:uid(),...o});
+ sel=date;save();resetForm();render();
+};
+$('#fCancel').onclick=()=>{resetForm();render()};
+$('#lSave').onclick=()=>{const title=$('#lTitle').value.trim();if(!title)return alert('请先写上长期目标');S.longs.push({id:uid(),title,date:$('#lDate').value,note:$('#lNote').value.trim()});$('#lTitle').value='';$('#lNote').value='';$('#lDate').value='';save();render()};
+$('#sMode').onchange=e=>{S.set.mode=e.target.value;save()};
+$('#sTest').onclick=()=>remind({title:'这是一条测试提醒',start:'现在',end:''},true);
+$('#sColor').oninput=e=>{S.set.color=e.target.value;S.set.img='';save();render()};
+$('#sImg').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{S.set.img=r.result;S.set.color='';save();render()};r.readAsDataURL(f)};
+
+let ac=null;
+function beep(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();[0,.35,.7].forEach(d=>{const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=880;o.connect(g);g.connect(ac.destination);const t=ac.currentTime+d;g.gain.setValueAtTime(.25,t);g.gain.exponentialRampToValueAtTime(.001,t+.3);o.start(t);o.stop(t+.3)})}catch(e){}}
+function remind(t,force){
+ const m=S.set.mode;if(m==='off'&&!force)return;
+ if(m==='sound'){beep();return}
+ if(m==='off'){return alert('提醒已关闭，请先在上方选择“弹窗”或“声音”再测试')}
+ try{new Notification('George’s Plan',{body:t.title+' '+t.start})}catch(e){}
+ const d=document.createElement('div');d.className='mask';
+ d.innerHTML=`<div class="modal"><div style="font-size:34px">⏰</div><h3>${esc(t.title)}</h3><div class="tm" style="color:var(--sub);margin-bottom:16px">${esc(t.start)}${t.end?' – '+esc(t.end):''}${t.imp?' · 重要':''}</div><button class="btn">知道了</button></div>`;
+ d.querySelector('button').onclick=()=>d.remove();document.body.appendChild(d);
+}
+const fired=new Set();
+setInterval(()=>{
+ const n=new Date(),hm=p2(n.getHours())+':'+p2(n.getMinutes()),ds=ymd(n);
+ S.tasks.forEach(t=>{const k=t.id+ds+t.start;if(t.date===ds&&t.start===hm&&!fired.has(k)){fired.add(k);remind(t)}});
+ if(ds!==lastDay){lastDay=ds;render()}
+},10000);
+let lastDay=todayStr();
+document.addEventListener('click',()=>{try{ac=ac||new (window.AudioContext||window.webkitAudioContext)()}catch(e){}},{once:true});
+
+const doy=Math.floor((new Date()-new Date(new Date().getFullYear(),0,0))/864e5),q=Q[doy%Q.length];
+$('#quote').innerHTML=`“${q[0]}”<i>—— ${q[1]}</i>`;
+render();
+</script>
+</body>
+</html>

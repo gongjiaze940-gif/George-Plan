@@ -1,0 +1,28 @@
+George's Plan 桌面版(Windows)—— 用 GitHub 自动生成安装包
+
+【一、上传到 GitHub】
+1. 注册并登录 https://github.com
+2. 右上角 + → New repository,名字填 georges-plan,选 Public(公开),点 Create repository
+3. 在新仓库页面点 "uploading an existing file"
+4. 把本文件夹里的所有文件拖进去,包括:index.html、main.js、package.json、build 文件夹
+   (注意:.github 文件夹是隐藏文件夹,拖拽整个文件夹时一并拖入;若网页不接受文件夹,见下方【备用方法】)
+5. 点 Commit changes
+
+【二、自动编译】
+1. 点仓库顶部的 Actions 标签,会看到 "Build Windows installer" 正在运行(约 3~5 分钟)
+2. 变成绿色对勾后,点进去,拉到最下面 Artifacts,下载 Georges-Plan-Windows
+3. 解压得到 George's Plan Setup 1.0.0.exe
+
+【三、安装】
+双击 exe 安装,安装时会自动在桌面生成 "George's Plan" 快捷方式,图标就是 G 和 P。
+
+【备用方法:.github 文件夹传不上去】
+在仓库页面点 Add file → Create new file,文件名输入:
+.github/workflows/build.yml
+然后把本文件夹里 .github/workflows/build.yml 的内容复制进去,保存即可。
+编译没有自动开始的话,到 Actions 页面点 Build Windows installer → Run workflow。
+
+【说明】
+- 数据保存在软件自己的本地存储中,卸载前不会丢。
+- 软件需要保持运行(可以最小化)才会按时提醒。
+- 想改功能,直接改 index.html 再上传,GitHub 会自动重新编译。

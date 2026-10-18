@@ -1,0 +1,27 @@
+{
+  "name": "georges-plan",
+  "version": "1.0.0",
+  "description": "George's Plan - 八日计划与长期计划",
+  "author": "George",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --publish never"
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.george.plan",
+    "productName": "George's Plan",
+    "files": ["main.js", "index.html", "build/icon.png"],
+    "win": { "target": "nsis", "icon": "build/icon.png" },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
